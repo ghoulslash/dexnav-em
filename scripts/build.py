@@ -55,7 +55,7 @@ AUDIO = './audio'
 BUILD = './build'
 IMAGES = './Images'
 ASFLAGS = ['-mthumb', '-I', ASSEMBLY]
-LDFLAGS = ['BPRE.ld', '-T', 'linker.ld']
+LDFLAGS = ['BPEE.ld', '-T', 'linker.ld']
 CFLAGS = ['-mthumb', '-mno-thumb-interwork', '-mcpu=arm7tdmi', '-mtune=arm7tdmi',
           '-mno-long-calls', '-march=armv4t', '-Wall', '-Wextra', '-Os', '-fira-loop-pressure', '-fipa-pta']
 

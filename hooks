@@ -1,9 +1,3 @@
-# load/save event objects
-LoadEventObjects 0804C2B8 0
-SaveEventObjects 0804C270 0
-
-#TrySetupEventObjectSprite 0805E590 4
-
-# Mart
-BuyMenuCollectObjectEventData 0809B92C 0
-BuyMenuDrawObjectEvents 0809BA40 0 
+# start menu
+BuildStartMenuActions 0809F440 0
+HandleStartMenuInput 0809FAC4 0

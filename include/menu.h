@@ -26,6 +26,12 @@ void __attribute__((long_call)) reset_temp_tile_data_buffers(void);
 int __attribute__((long_call)) decompress_and_copy_tile_data_to_vram(u8 bg_id, const void *src, int size, u16 offset, u8 mode);
 bool8 __attribute__((long_call)) free_temp_tile_data_buffers_if_possible(void);
 
+u8 __attribute__((long_call)) Menu_InitCursor(u8 windowId, u8 fontId, u8 left, u8 top, u8 cursorHeight, u8 numChoices, u8 initialCursorPos);
+s8 __attribute__((long_call)) Menu_ProcessInputNoWrapAround_other(void);
+void __attribute__((long_call)) DrawStdFrameWithCustomTileAndPalette(u8 windowId, bool8 copyToVram, u16 tileStart, u8 palette);
+void __attribute__((long_call)) AddTextPrinterParameterized3(u8 windowId, u8 fontId, u8 left, u8 top, const u8 *color, s8 speed, const u8 *str);
+void __attribute__((long_call)) ClearStdWindowAndFrameToTransparent(u8 windowId, bool8 copyToVram);
+
 /*
 void __attribute__((long_call)) schedule_bg_copy_tilemap_to_vram(u8 bgNum); //Use BgIdMarkForSync
 void box_print(u8, u8, u8, u8, const void *, s8, const u8 *);

@@ -5,7 +5,7 @@
 #include "gba/gba.h"
 #include <string.h>
 
-#define EVENT_OBJECTS_COUNT_1 16
+#define EVENT_OBJECTS_COUNT 16
 
 // Define unused parameters
 #define unusedArg __attribute__((unused))
@@ -807,7 +807,7 @@ struct SaveBlock1
 	/*0x0632*/ u8 field_632[6]; // unused?
     /*0x0638*/ u8 trainerRematchStepCounter;
     /*0x063A*/ u8 ALIGNED(2) trainerRematches[100];
-    /*0x06A0*/ struct EventObject eventObjects[EVENT_OBJECTS_COUNT_1];
+    /*0x06A0*/ struct EventObject eventObjects[EVENT_OBJECTS_COUNT];
     /*0x08E0*/ struct EventObjectTemplate eventObjectTemplates[EVENT_OBJECT_TEMPLATES_COUNT];
     /*0x0EE0*/ u8 flags[FLAGS_COUNT];
     /*0x1000*/ u16 vars[VARS_COUNT];

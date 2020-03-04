@@ -8,7 +8,7 @@ from datetime import datetime
 import _io
 
 OFFSET_TO_PUT = 0x9a0000
-SOURCE_ROM = "BPRE0.gba"
+SOURCE_ROM = "BPEE0.gba"
 ROM_NAME = "test.gba"
 
 if sys.platform.startswith('win'):
@@ -46,7 +46,6 @@ ROUTINE_POINTERS = 'routinepointers'
 FUNCTION_REWRITES = 'functionrewrites'
 BYTE_CHANGES = 'byte_changes.asm'
 BYTE_CHANGES_OUT = 'build/byte_changes.bin'
-RAM_REPOINTS = 'ram_repoints'
 
 def ExtractPointer(byteList: [bytes]):
     pointer = 0
@@ -503,35 +502,6 @@ def main():
                     for tup in offsets:
                         output.write(tup[1] + ' ' + str(tup[0]) + '\n')
                     output.close()
-					
-		# repoint ram
-        if os.path.isfile(RAM_REPOINTS):
-            with open(RAM_REPOINTS, 'r') as pointerlist:
-                definesDict = {}
-                conditionals = []
-                ramToRepointTogether = []
-                for line in pointerlist:
-                    if TryProcessFileInclusion(line, definesDict):
-                        continue
-                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
-                        continue
-                    if line.strip().startswith('#') or line.strip() == '':
-                        continue
-
-                    existing, new_address = line.split()
-                    existing = int(existing, 16)
-                    new_address = int(new_address, 16)
-				    
-                    try:
-                        code = table[symbol]
-                    except KeyError:
-                        print('Symbol missing:', symbol)
-                        continue
-                    ramToRepointTogether.append(tuple((existing, new_address)))
-			
-                # find all instances of the 'existing' and replace with 'new_address' pointers
-                print('Repointing RAM addresses.')
-                RamRepoint(rom, ramToRepointTogether)
 
         # Read routine repoints from a file
         if os.path.isfile(ROUTINE_POINTERS):

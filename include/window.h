@@ -74,6 +74,8 @@ s8 __attribute__((long_call)) RboxChoiceUpdate(void);
 u8 __attribute__((long_call)) RboxIdClean(u8 id, bool8 update);
 void __attribute__((long_call)) DeleteWindow(u8 windowId, bool8 copyToVram);
 
+
+
 /*
 int AddWindowWithoutTileMap(const struct WindowTemplate *template);
 void CopyWindowRectToVram(u32 windowId, u32 mode, u32 x, u32 y, u32 w, u32 h);

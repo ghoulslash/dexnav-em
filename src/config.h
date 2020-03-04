@@ -1,0 +1,1 @@
+#define FLAG_POKETOOLS_MENU 0x4FF

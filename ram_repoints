@@ -1,8 +1,0 @@
-#gMovementScripts -> EVENT_OBJECTS_COUNT*4 = 120 bytes
-2039830 203e108
-
-#gEventObjects -> EVENT_OBJECTS_COUNT * 0x24(36) = 1080 bytes
-2036E38 203e180
-
-#sViewportObjectEvents -> EVENT_OBJECTS_COUNT * 8 = 240 bytes
-020398b4 203e5b8
