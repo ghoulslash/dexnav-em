@@ -4,7 +4,6 @@ notes.txt
 *.sgm
 build/*
 *.gif
-*.png
 *.jpg
 *.bak
 scripts/__pychache__/*
