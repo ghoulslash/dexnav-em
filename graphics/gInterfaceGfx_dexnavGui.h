@@ -9,7 +9,7 @@
 //	+ regular map (flat), lz77 compressed, 32x20 
 //	Total size: 40 + 1864 + 548 = 2452
 //
-//	Time-stamp: 2019-09-24, 19:50:09
+//	Time-stamp: 2020-03-03, 21:34:43
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //

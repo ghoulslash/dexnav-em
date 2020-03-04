@@ -16,3 +16,5 @@ u8 __attribute__((long_call)) GetValidMonIconPalIndex(u16 species);
 u8 __attribute__((long_call)) GetSpeciesIconPaletteIndex(u16 species);
 const u16* __attribute__((long_call)) GetValidMonIconPalettePtr(u16 species);
 u8 __attribute__((long_call)) UpdateMonIconFrame(struct Sprite *sprite);
+
+void __attribute__((long_call)) SpriteCB_MonIcon(struct Sprite *sprite);

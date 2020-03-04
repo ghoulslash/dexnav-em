@@ -51,3 +51,23 @@ void __attribute__((long_call)) ApplyFluteEncounterRateMod(u32 *encRate);
 void __attribute__((long_call)) ApplyCleanseTagEncounterRateMod(u32 *encRate);
 void __attribute__((long_call)) IncrementEncounterProbabilityBonus(u8 encounterRate);
 u8  __attribute__((long_call)) GetUnownLetterFromPersonality(u32 personality);
+
+u16 __attribute__((long_call)) GetCurrentMapWildMonHeaderId(void);
+
+//Exported COnstants
+enum
+{
+	LAND_MONS_HEADER,
+	WATER_MONS_HEADER,
+	FISHING_MONS_HEADER,
+	ROCK_SMASH_MONS_HEADER,
+};
+
+#define TILE_FLAG_ENCOUNTER_TILE 1
+#define TILE_FLAG_SURFABLE 2
+#define TILE_FLAG_WILD_DOUBLE 4
+#define TILE_FLAG_SHAKING 8
+
+#define ENCOUNTER_TYPE_LAND 0
+#define ENCOUNTER_TYPE_WATER 1
+

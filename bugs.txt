@@ -1,3 +1,0 @@
-1. Vs Seeker structure needs to be expanded for more event objects. It currently will only search the first 15 active events.
-2. The event object data gets ruined when entering/exiting the help menu system
-3. Too many unique palettes will cause some to load improperly. Still working on this fix.

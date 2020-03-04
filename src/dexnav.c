@@ -1,53 +1,5 @@
-//#include "defines.h"
 #include "config.h"
-#include "../include/battle.h"
-#include "../include/bg.h"
-#include "../include/event_data.h"
-#include "../include/event_object_movement.h"
-#include "../include/field_effect.h"
-#include "../include/field_message_box.h"
-#include "../include/field_player_avatar.h"
-#include "../include/fieldmap.h"
-#include "../include/menu.h"
-#include "../include/m4a.h"
-#include "../include/main.h"
-#include "../include/metatile_behavior.h"
-#include "../include/overworld.h"
-#include "../include/palette.h"
-#include "../include/pokemon.h"
-#include "../include/pokemon_icon.h"
-#include "../include/random.h"
-#include "../include/region_map.h"
-#include "../include/script.h"
-#include "../include/sprite.h"
-#include "../include/string_util.h"
-#include "../include/text.h"
-#include "../include/wild_encounter.h"
-#include "../include/window.h"
-#include "../include/decompress.h"
-#include "../include/constants/abilities.h"
-#include "../include/constants/field_effects.h"
-#include "../include/constants/items.h"
-#include "../include/constants/maps.h"
-#include "../include/constants/moves.h"
-#include "../include/constants/pokedex.h"
-#include "../include/constants/songs.h"
-#include "../include/constants/species.h"
-#include "../include/gba/io_reg.h"
-
-//#include "../include/new/battle_strings.h"
-//#include "../include/new/build_pokemon.h"
-//#include "../include/new/daycare.h"
-#include "../include/new/dexnav.h"
-#include "../include/new/dexnav_config.h"
-#include "../include/new/dexnav_data.h"
-//#include "../include/new/dns.h"
-//#include "../include/new/util.h"
-//#include "../include/new/overworld.h"
-//#include "../include/new/wild_encounter.h"
-
-// free ram:
-#define sDNavState (*((struct DexnavHudData**) 0x203E038))
+#include "defines.h"
 
 #define ROW_LAND 0
 #define ROW_WATER 1
@@ -109,12 +61,20 @@ static void DexNavLoadCapturedAllSymbol(void);
 static void DexNavGuiExitNoSearch(void);
 static void DexNavPopulateEncounterList(void);
 static void DexNavGuiHandler(void);
-static void PrintDexNavError(void);
+//static void PrintDexNavError(void);
 //static void FieldEff_CaveDust(void);
 //static void FieldEff_Sparkles(void);
-void ToolSelection(u8 taskId);
+//void ToolSelection(u8 taskId);
 //static void CloseStartMenu(void);
-static bool8 InTanobyRuins(void);
+//static bool8 InTanobyRuins(void);
+
+u32 MathMin(u32 num1, u32 num2)
+{
+	if (num1 < num2)
+		return num1;
+
+	return num2;
+}
 
 /*
 static void DestroyTaskCompletedTextbox(u8 tId)
@@ -169,9 +129,10 @@ static void DexNavGUICallback2(void)
 static void ResetPalSettings(void)
 {
     ResetPaletteFade();
-    FadeBgPalAndFillBlack();
+    //FadeBgPalAndFillBlack();
+    FillPalBufferBlack();
     FreeAllSpritePalettes();
-    PalTagsStart = 0;
+    //PalTagsStart = 0;
 }
 
 
@@ -1665,10 +1626,10 @@ static void DexNavLoadPokeIcons(void)
 {
     s16 x, y;
     u8 i;
-    u8 letter;
+    //u8 letter;
     u32 pid = 0xFFFFFFFF;
-    u8 hiddenLandMons = sDNavState->numHiddenLandMons;
-    u8 hiddenWaterMons = sDNavState->numHiddenWaterMons;
+    //u8 hiddenLandMons = sDNavState->numHiddenLandMons;
+    //u8 hiddenWaterMons = sDNavState->numHiddenWaterMons;
 
     LoadMonIconPalettes();
 
@@ -1832,8 +1793,8 @@ static void DexNavLoadAreaNames(void)
         waterText = gText_DexNavWater;
     }
 
-    WindowPrint(WINDOW_WATER, 1, 4, 6, &DexNav_WhiteText, 0, waterText);
-    WindowPrint(WINDOW_LAND, 1, 5, 6, &DexNav_WhiteText, 0, landText);
+    AddTextPrinterParameterized3(WINDOW_WATER, 1, 4, 6, &DexNav_WhiteText, 0, waterText);
+    AddTextPrinterParameterized3(WINDOW_LAND, 1, 5, 6, &DexNav_WhiteText, 0, landText);
 }
 
 
@@ -1850,57 +1811,63 @@ static void DexNavLoadNames(u8 status)
     u16 dexNum = SpeciesToNationalPokedexNum(species);
 
     if (species != SPECIES_NONE)
-        WindowPrint(WINDOW_SPECIES, 0, 0, 4, &DexNav_BlackText, 0, gSpeciesNames[species]);
+        AddTextPrinterParameterized3(WINDOW_SPECIES, 0, 0, 4, &DexNav_BlackText, 0, gSpeciesNames[species]);
     else
-        WindowPrint(WINDOW_SPECIES, 0, 0, 4, &DexNav_BlackText, 0, gText_DexNav_NoInfo);
+        AddTextPrinterParameterized3(WINDOW_SPECIES, 0, 0, 4, &DexNav_BlackText, 0, gText_DexNav_NoInfo);
 
     //Print search level
-    ConvertIntToDecimalStringN(gStringVar4, sSearchLevels[dexNum], 0, 4);
+    StringCopy(gStringVar4, gText_DexNav_NoInfo);
 
     if (species == SPECIES_NONE)
-        WindowPrint(WINDOW_SEARCH_LEVEL, 0, 0, 4, &DexNav_BlackText, 0, gText_DexNav_NoInfo);
+        AddTextPrinterParameterized3(WINDOW_SEARCH_LEVEL, 0, 0, 4, &DexNav_BlackText, 0, gText_DexNav_NoInfo);
     else
-        WindowPrint(WINDOW_SEARCH_LEVEL, 0, 0, 4, &DexNav_BlackText, 0, gStringVar4);
+        AddTextPrinterParameterized3(WINDOW_SEARCH_LEVEL, 0, 0, 4, &DexNav_BlackText, 0, gStringVar4);
 
     //Print level bonus
+    /*
     u8 searchLevelBonus = 0;
     if ((sSearchLevels[dexNum] >> 2) > 20)
         searchLevelBonus = 20;
     else
         searchLevelBonus = (sSearchLevels[dexNum] >> 2);
-
-    ConvertIntToDecimalStringN(gStringVar4, searchLevelBonus, 0, 4);
+    */
+    
+    //ConvertIntToDecimalStringN(gStringVar4, searchLevelBonus, 0, 4);
 
     if (species == SPECIES_NONE)
-        WindowPrint(WINDOW_LEVEL_BONUS, 0, 0, 4, &DexNav_BlackText, 0, gText_DexNav_NoInfo);
+        AddTextPrinterParameterized3(WINDOW_LEVEL_BONUS, 0, 0, 4, &DexNav_BlackText, 0, gText_DexNav_NoInfo);
     else
-        WindowPrint(WINDOW_LEVEL_BONUS, 0, 0, 4, &DexNav_BlackText, 0, gStringVar4);
+        AddTextPrinterParameterized3(WINDOW_LEVEL_BONUS, 0, 0, 4, &DexNav_BlackText, 0, gStringVar4);
 
     //Print hidden ability name
     if (GetSetPokedexFlag(dexNum, FLAG_GET_CAUGHT) || species == SPECIES_NONE)
     {
+        /*
         if (gBaseStats[species].hiddenAbility != ABILITY_NONE) //Only display hidden ability is Pokemon has been caught
-            WindowPrint(WINDOW_HIDDEN_ABILITY, 0, 0, 4, &DexNav_BlackText, 0, GetAbilityName(gBaseStats[species].hiddenAbility));
+            AddTextPrinterParameterized3(WINDOW_HIDDEN_ABILITY, 0, 0, 4, &DexNav_BlackText, 0, GetAbilityName(gBaseStats[species].hiddenAbility));
         else
-            WindowPrint(WINDOW_HIDDEN_ABILITY, 0, 0, 4, &DexNav_BlackText, 0, gText_DexNav_NoInfo);
+            AddTextPrinterParameterized3(WINDOW_HIDDEN_ABILITY, 0, 0, 4, &DexNav_BlackText, 0, gText_DexNav_NoInfo);
+        */
+        
+        AddTextPrinterParameterized3(WINDOW_HIDDEN_ABILITY, 0, 0, 4, &DexNav_BlackText, 0, gText_DexNav_NoInfo);
     }
     else
-        WindowPrint(WINDOW_HIDDEN_ABILITY, 0, 0, 4, &DexNav_BlackText, 0, gText_DexNav_CaptureToSee);
+        AddTextPrinterParameterized3(WINDOW_HIDDEN_ABILITY, 0, 0, 4, &DexNav_BlackText, 0, gText_DexNav_CaptureToSee);
 
     //Print status message bar
     switch(status)
     {
         case 0:
-            WindowPrint(WINDOW_REPLY_TEXT, 1, 2, 8, &DexNav_WhiteText, 0, gText_DexNav_Invalid);
+            AddTextPrinterParameterized3(WINDOW_REPLY_TEXT, 1, 2, 8, &DexNav_WhiteText, 0, gText_DexNav_Invalid);
             break;
         case 1:
-            WindowPrint(WINDOW_REPLY_TEXT, 1, 2, 8, &DexNav_WhiteText, 0, gText_DexNav_ChooseMon);
+            AddTextPrinterParameterized3(WINDOW_REPLY_TEXT, 1, 2, 8, &DexNav_WhiteText, 0, gText_DexNav_ChooseMon);
             break;
         case 2:
-            WindowPrint(WINDOW_REPLY_TEXT, 1, 2, 8, &DexNav_WhiteText, 0, gText_DexNav_Locked);
+            AddTextPrinterParameterized3(WINDOW_REPLY_TEXT, 1, 2, 8, &DexNav_WhiteText, 0, gText_DexNav_Locked);
             break;
         case 3:
-            WindowPrint(WINDOW_REPLY_TEXT, 1, 2, 8, &DexNav_WhiteText, 0, gText_DexNav_NoDataForSlot);
+            AddTextPrinterParameterized3(WINDOW_REPLY_TEXT, 1, 2, 8, &DexNav_WhiteText, 0, gText_DexNav_NoDataForSlot);
             break;
     }
 
@@ -1909,7 +1876,7 @@ static void DexNavLoadNames(u8 status)
 
     //Load map name
     GetMapName(gStringVar4, GetCurrentRegionMapSectionId(), 0);
-    WindowPrint(WINDOW_MAP_NAME, 1, 2, 0, &DexNav_WhiteText, 0, gStringVar4);
+    AddTextPrinterParameterized3(WINDOW_MAP_NAME, 1, 2, 0, &DexNav_WhiteText, 0, gStringVar4);
 
     // display committed gfx
     for (u8 i = 0; i < WINDOW_COUNT; ++i)
@@ -1937,8 +1904,9 @@ static void DexNavLoadCapturedAllSymbol(void)
     int i;
     u8 num = 0;
     u16 species;
-    const struct WildPokemonInfo* landMonsInfo = LoadProperMonsData(LAND_MONS_HEADER);
-    const struct WildPokemonInfo* waterMonsInfo = LoadProperMonsData(WATER_MONS_HEADER);
+    u16 headerId = GetCurrentMapWildMonHeaderId();
+    const struct WildPokemonInfo* landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
+    const struct WildPokemonInfo* waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
 
     LoadCompressedSpriteSheetUsingHeap(&sCapturedAllPokemonSpriteSheet);
 
@@ -2001,7 +1969,7 @@ static void DexNavGuiExitSearch(void)
             }
             break;
         case 2:
-            m4aMPlayVolumeControl(&gMPlay_BGM, 0xFFFF, 256);
+            m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, 256);
             SetMainCallback1(CallbackDexNavOW);
             SetMainCallback2(CB2_ReturnToFieldContinueScript);
             break;
@@ -2027,12 +1995,10 @@ static void DexNavGuiExitNoSearch(void)
             }
             break;
         case 2:
-            m4aMPlayVolumeControl(&gMPlay_BGM, 0xFFFF, 256);
+            //m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, 256);
             SetMainCallback1(CB1_Overworld);
 
-            #ifdef FLAG_POKETOOLS_MENU
-                FlagSet(FLAG_POKETOOLS_MENU);
-            #endif
+            FlagSet(FLAG_POKETOOLS_MENU);
             SetMainCallback2(CB2_ReturnToFieldWithOpenMenu);
             break;
     }
@@ -2052,9 +2018,10 @@ static void DexNavPopulateEncounterList(void)
     u8 grassIndex = 0;
     u8 waterIndex = 0;
     u16 species;
-
-    const struct WildPokemonInfo* landMonsInfo = LoadProperMonsData(LAND_MONS_HEADER);
-    const struct WildPokemonInfo* waterMonsInfo = LoadProperMonsData(WATER_MONS_HEADER);
+    u16 headerId = GetCurrentMapWildMonHeaderId();
+    //u16 unowns[NUM_LAND_MONS + 1];
+    const struct WildPokemonInfo* landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
+    const struct WildPokemonInfo* waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
 
     sDNavState->hiddenSpecies[0] = SPECIES_TABLES_TERMIN;
 
@@ -2067,12 +2034,14 @@ static void DexNavPopulateEncounterList(void)
             if (species != SPECIES_NONE)
             {
                 sDNavState->grassSpecies[grassIndex++] = landMonsInfo->wildPokemon[i].species;
-
+                
+                /*
                 if (InTanobyRuins())
                 {
                     sDNavState->unownForms[i] = PickUnownLetter(species, i);
                     sDNavState->unownFormsByDNavIndices[grassIndex - 1] = PickUnownLetter(species, i);
                 }
+                */
             }
         }
     }
@@ -2139,28 +2108,28 @@ static void DexNavGuiHandler(void)
             }
             break;
         case 1: ;
-			//Load BG assets
-			void* DexNav_gbackBuffer = Malloc(0x800);
-			sDNavState->backBuffer = DexNav_gbackBuffer;
-			LoadPalette(&DexNavTextPal, 15 * 16, 32);
-			const u8* palette;
+            //Load BG assets
+            void* DexNav_gbackBuffer = Malloc(0x800);
+            sDNavState->backBuffer = DexNav_gbackBuffer;
+            LoadPalette(&DexNavTextPal, 15 * 16, 32);
+            const u8* palette;
 
-			if (IsMapTypeIndoors(GetCurrentMapType()))
-				palette = gInterfaceGfx_DexNavGuiIndoorPal;
-			else if (IsCurrentAreaVolcano()) //Load special palette for volcanos
-				palette = gInterfaceGfx_DexNavGuiVolcanoPal;
-			else if (IsCurrentAreaDarkerCave())
-				palette = gInterfaceGfx_DexNavGuiDarkerCavePal;
-			else if (GetCurrentMapType() == MAP_TYPE_UNDERGROUND)
-				palette = gInterfaceGfx_DexNavGuiCavePal;
-			else if (IsCurrentAreaAutumn())
-				palette = gInterfaceGfx_DexNavGuiAutumnPal;
-			else if (IsCurrentAreaWinter())
-				palette = gInterfaceGfx_DexNavGuiWinterPal;
-			else
-				palette = gInterfaceGfx_dexnavGuiPal;
+            if (IsMapTypeIndoors(GetCurrentMapType()))
+                palette = gInterfaceGfx_DexNavGuiIndoorPal;
+            //else if (IsCurrentAreaVolcano()) //Load special palette for volcanos
+            //    palette = gInterfaceGfx_DexNavGuiVolcanoPal;
+            //else if (IsCurrentAreaDarkerCave())
+            //    palette = gInterfaceGfx_DexNavGuiDarkerCavePal;
+            else if (GetCurrentMapType() == MAP_TYPE_UNDERGROUND)
+                palette = gInterfaceGfx_DexNavGuiCavePal;
+            //else if (IsCurrentAreaAutumn())
+            //    palette = gInterfaceGfx_DexNavGuiAutumnPal;
+            //else if (IsCurrentAreaWinter())
+            //    palette = gInterfaceGfx_DexNavGuiWinterPal;
+            else
+                palette = gInterfaceGfx_dexnavGuiPal;
 
-			LoadCompressedPalette(palette, 0, 32);
+            LoadCompressedPalette(palette, 0, 32);
 
             LZ77UnCompWram(gInterfaceGfx_dexnavGuiMap, DexNav_gbackBuffer);
             LZ77UnCompVram(gInterfaceGfx_dexnavGuiTiles, (void*) 0x06000000);
@@ -2343,6 +2312,7 @@ static void DexNavGuiHandler(void)
     }
 }
 
+/*
 static void PrintDexNavError(void)
 {
     if (sDNavState->selectedArr == ROW_WATER
@@ -2366,6 +2336,7 @@ static void PrintDexNavError(void)
         PlaySE(SE_ERROR);
     }
 }
+*/
 
 /*
 // =================================== //
@@ -2579,6 +2550,7 @@ bool8 IsDexNavHudActive(void)
 // ============================== //
 // ========= POKETOOLS ========== //
 // ============================== //
+/*
 void ToolSelection(u8 taskId)
 {
     switch (priv0)
@@ -2626,9 +2598,4 @@ void ToolSelection(u8 taskId)
         }
     }
 }
-
-static bool8 InTanobyRuins(void)
-{
-    return FALSE;
-}
-
+*/

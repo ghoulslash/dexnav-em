@@ -29,11 +29,12 @@ bool8 __attribute__((long_call)) free_temp_tile_data_buffers_if_possible(void);
 u8 __attribute__((long_call)) Menu_InitCursor(u8 windowId, u8 fontId, u8 left, u8 top, u8 cursorHeight, u8 numChoices, u8 initialCursorPos);
 s8 __attribute__((long_call)) Menu_ProcessInputNoWrapAround_other(void);
 void __attribute__((long_call)) DrawStdFrameWithCustomTileAndPalette(u8 windowId, bool8 copyToVram, u16 tileStart, u8 palette);
-void __attribute__((long_call)) AddTextPrinterParameterized3(u8 windowId, u8 fontId, u8 left, u8 top, const u8 *color, s8 speed, const u8 *str);
 void __attribute__((long_call)) ClearStdWindowAndFrameToTransparent(u8 windowId, bool8 copyToVram);
+void __attribute__((long_call)) BgIdMarkForSync(u8 bgNum);
+
+u8 __attribute__((long_call)) Menu_MoveCursor(s8 cursorDelta);
 
 /*
-void __attribute__((long_call)) schedule_bg_copy_tilemap_to_vram(u8 bgNum); //Use BgIdMarkForSync
 void box_print(u8, u8, u8, u8, const void *, s8, const u8 *);
 void sub_8198070(u8 windowId, bool8 copyToVram);
 void SetWindowTemplateFields(struct WindowTemplate* template, u8 priority, u8 tilemapLeft, u8 tilemapTop, u8 width, u8 height, u8 palNum, u16 baseBlock);

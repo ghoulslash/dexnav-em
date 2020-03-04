@@ -1,15 +1,7 @@
+#include "config.h"
 #include "defines.h"
-#include "../include/link.h"
-#include "../include/menu.h"
-#include "../include/safari_zone.h"
-#include "../include/start_menu.h"
-#include "../include/constants/flags.h"
-#include "../include/constants/songs.h"
 
-#include "../include/new/dexnav.h"
-
-static u8 PokeToolsFunc(void);
-static bool8 StartMenuPokeToolsCallback(void);
+//static bool8 StartMenuPokeToolsCallback(void);
 
 static const struct MenuAction sStartMenuItems[] =
 {
@@ -32,7 +24,7 @@ static const struct MenuAction sStartMenuItems[] =
 
 static void BuildPokeToolsMenu(void)
 {
-	sNumStartMenuActionsItems = 0;
+	gStartMenu->actionCount = 0;
 
 	AddStartMenuAction(MENU_ACTION_POKEDEX);
 	AddStartMenuAction(MENU_ACTION_DEXNAV);
@@ -66,9 +58,9 @@ static void BuildNormalStartMenu(void)
     AddStartMenuAction(MENU_ACTION_EXIT);
 }
 
-static void BuildStartMenuActions(void)
+void BuildStartMenuActions(void)
 {
-    sNumStartMenuActions = 0;
+    gStartMenu->actionCount = 0;
 
     if (IsUpdateLinkStateCBActive() == TRUE)
         BuildLinkModeStartMenu();
@@ -93,7 +85,7 @@ static void CloseStartMenu(void)
     RemoveExtraStartMenuWindows();
     HideStartMenu();
 }
-
+/*
 static bool8 StartMenuPokeToolsCallback(void)
 {
     CloseStartMenu();
@@ -102,8 +94,9 @@ static bool8 StartMenuPokeToolsCallback(void)
     
     return TRUE;
 }
+*/
 
-static u8 PokeToolsFunc(void)
+u8 PokeToolsFunc(void)
 {
 	CloseStartMenu();
 	PlaySE(SE_WIN_OPEN);
@@ -120,31 +113,31 @@ bool8 HandleStartMenuInput(void)
     if (gMain.newKeys & DPAD_UP)
     {
         PlaySE(SE_SELECT);
-        sStartMenuCursorPos = Menu_MoveCursor(-1);
+        gStartMenu->cursorPos = Menu_MoveCursor(-1);
     }
 
     if (gMain.newKeys & DPAD_DOWN)
     {
         PlaySE(SE_SELECT);
-        sStartMenuCursorPos = Menu_MoveCursor(1);
+        gStartMenu->cursorPos = Menu_MoveCursor(1);
     }
 
     if (gMain.newKeys & A_BUTTON)
     {
         PlaySE(SE_SELECT);
-        if (sStartMenuItems[sCurrentStartMenuActions[sStartMenuCursorPos]].func.u8_void == StartMenuPokedexCallback)
+        if (sStartMenuItems[gStartMenu->actions[gStartMenu->cursorPos]].func.u8_void == StartMenuPokedexCallback)
         {
             if (GetNationalPokedexCount(FLAG_GET_SEEN) == 0)
                 return FALSE;
         }
 
-        gMenuCallback = sStartMenuItems[sCurrentStartMenuActions[sStartMenuCursorPos]].func.u8_void;
+        gMenuCallback = (u32)sStartMenuItems[gStartMenu->actions[gStartMenu->cursorPos]].func.u8_void;
 
-        if (gMenuCallback != StartMenuSaveCallback
-            && gMenuCallback != StartMenuExitCallback
-            && gMenuCallback != StartMenuSafariZoneRetireCallback
-            && gMenuCallback != StartMenuBattlePyramidRetireCallback
-            && gMenuCallback != StartMenuPokeToolsCallback)
+        if (gMenuCallback != (u32)StartMenuSaveCallback
+            && gMenuCallback != (u32)StartMenuExitCallback
+            && gMenuCallback != (u32)StartMenuSafariZoneRetireCallback
+            && gMenuCallback != (u32)StartMenuBattlePyramidRetireCallback
+            && gMenuCallback != (u32)PokeToolsFunc)
         {
            FadeScreen(FADE_TO_BLACK, 0);
         }

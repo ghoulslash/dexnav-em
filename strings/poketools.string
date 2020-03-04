@@ -1,3 +1,23 @@
+#org @gText_MenuPokedex
+POK\eDEX
+#org @gText_MenuPokemon
+POK\eMON
+#org @gText_MenuPokenav
+POK\eNAV
+#org @gText_MenuBag
+BAG
+#org @gText_MenuPlayer
+[FD][01]
+#org @gText_MenuSave
+SAVE
+#org @gText_MenuOption
+OPTION
+#org @gText_MenuExit
+EXIT
+#org @gText_MenuRetire
+RETIRE
+#org @gText_MenuRest
+REST
 #org @gText_PokeTools
 TOOLS
 
@@ -70,8 +90,3 @@ There's no data for that Pok\emon[.]
 #org @gText_DexNav_Locked
 Pok\emon searchable via R-button!
 
-#org @gText_ToolsDescription
-Tools to view your Pok\edex progress\nor search for specific species.
-
-#org @gText_MenuCube
-Cube

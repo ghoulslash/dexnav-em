@@ -71,6 +71,8 @@ void __attribute__((long_call)) FillBgTilemapBufferRect(u8 bg, u16 tileNum, u8 x
 void __attribute__((long_call)) SetBgTilemapBuffer(u8 bg, void *tilemap);
 bool8 __attribute__((long_call)) IsDma3ManagerBusyWithBgCopy(void);
 
+void __attribute__((long_call)) ResetBgsAndClearDma3BusyFlags(u32 leftoverFireRedLeafGreenVariable);
+
 /*
 void ResetBgs(void);
 u8 GetBgMode(void);

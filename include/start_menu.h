@@ -13,32 +13,26 @@ extern const u8 gText_MenuRetire[];
 extern const u8 gText_PokeTools[];
 extern const u8 gText_DexNav[];
 extern const u8 gText_MenuBag[];
+extern const u8 gText_MenuPokenav[];
+extern const u8 gText_MenuRest[];
 
-extern const u8 gText_PokedexDescription[];
-extern const u8 gText_PokemonDescription[];
-extern const u8 gText_BagDescription[];
-extern const u8 gText_PlayerDescription[];
-extern const u8 gText_SaveDescription[];
-extern const u8 gText_OptionDescription[];
-extern const u8 gText_ExitDescription[];
-extern const u8 gText_RetireDescription[];
-extern const u8 gText_PlayerDescription[];
-extern const u8 gText_ToolsDescription[];
-extern const u8 gText_DexNavDescription[];
+//typedef u8 (*MainCallback)(void);
 
-
-typedef void (*MainCallback)(void);
-
-struct StartMenu {
-	MainCallback activeContext;
+//0x203760E
+struct StartMenu
+{
 	u8 cursorPos;
-	u8 numItems;
-	u8 menuIndices[9];
-	u8 stateTracker;
-	u8 stateTracker2;
-	u8 safariZone;
+    u8 actionCount;
+    u8 actions[9];
 };
 
+#define gStartMenu ((struct StartMenu*) 0x203760E)
+
+//#define sStartMenuCursorPos *((u8*) 0x203760E)
+//#define sNumStartMenuActions *((u8*) 0x203760F)
+//#define sCurrentStartMenuActions *((u8*) 0x2037610)
+
+#define gMenuCallback (*((u32*) 0x3005DF4))
 
 // Menu actions
 enum
@@ -56,7 +50,8 @@ enum
     MENU_ACTION_REST_FRONTIER,
     MENU_ACTION_RETIRE_FRONTIER,
     MENU_ACTION_PYRAMID_BAG,
-    MENU_ACTION_POKETOOLS
+    MENU_ACTION_POKETOOLS,
+    MENU_ACTION_DEXNAV,
 };
 
 void AppendToList(u8* list, u8* pos, u8 newEntry);
@@ -77,6 +72,9 @@ bool8 __attribute__((long_call)) StartMenuPlayerNameCallback(void);
 bool8 __attribute__((long_call)) StartMenuSaveCallback(void);
 bool8 __attribute__((long_call)) StartMenuOptionCallback(void);
 bool8 __attribute__((long_call)) StartMenuExitCallback(void);
+bool8 __attribute__((long_call)) StartMenuPokeNavCallback(void);
+bool8 __attribute__((long_call)) StartMenuBattlePyramidBagCallback(void);
+bool8 __attribute__((long_call)) StartMenuBattlePyramidRetireCallback(void);
 bool8 __attribute__((long_call)) StartMenuSafariZoneRetireCallback(void);
 bool8 __attribute__((long_call)) StartMenuLinkModePlayerNameCallback(void);
 void __attribute__((long_call)) TaskStartMenu(u8 taskId);
