@@ -45,7 +45,6 @@ SpriteCB_MonIcon = 0x80D3014 | 1;
 
 TransferPlttBuffer = 0x80A19C0 | 1;
 ResetPaletteFade = 0x80A1A74 | 1;
-FillPalBufferBlack = 0x80AF020 | 1;
 FreeAllSpritePalettes = 0x800870C | 1;
 gReservedSpritePaletteCount = 0x300301C;
 BeginNormalPaletteFade = 0x80A1AD4 | 1;
@@ -58,7 +57,7 @@ SetHBlankCallback = 0x80006FC | 1;
 SetMainCallback1 = 0x8085E88 | 1;
 SetMainCallback2 = 0x8000540 | 1;
 
-SyncTilemaps = 0x81999D0 | 1;
+do_scheduled_bg_tilemap_copies_to_vram = 0x81999D0 | 1;
 
 RunTextPrinters = 0x8004778 | 1;
 
@@ -75,13 +74,13 @@ IsMapTypeOutdoors = 0x8085BD0 | 1;
 IsMapTypeIndoors = 0x8085C14 | 1;
 FadeScreen = 0x80ABCD0 | 1;
 
-MallocInit = 0x8000B1C | 1;
-Malloc = 0x8000B38 | 1;
+InitHeap = 0x8000B1C | 1;
+Alloc = 0x8000B38 | 1;
 malloc_ = 0x8000B38 | 1;
 LZ77UnCompWram = 0x82E7090 | 1;
 LZ77UnCompVram = 0x82E708C | 1;
 Calloc = 0x8000B4C | 1;
-
+AllocZeroed = 0x8000B4C | 1;
 
 SpeciesToNationalPokedexNum = 0x806D4A4 | 1;
 GetSetPokedexFlag = 0x80C0664 | 1;

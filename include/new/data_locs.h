@@ -6,6 +6,8 @@
 //#include "../list_menu.h"
 
 #define gPaletteFade ((struct PaletteFadeControl*) 0x2037FD4)
+#define gPlttBufferFaded ((u16*) 0x2037B14)
+#define gReservedSpritePaletteCount *((u8*)0x300301C)
 
 typedef u8 SpeciesNames_t[POKEMON_NAME_LENGTH + 1];
 #define gSpeciesNames ((SpeciesNames_t*) *((u32*) 0x83185C8))

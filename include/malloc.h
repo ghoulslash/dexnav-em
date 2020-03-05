@@ -4,7 +4,7 @@
 #include "global.h"
 
 #define HEAP_SIZE 0x1C000
-    #define malloc Alloc
+#define malloc Alloc
 #define calloc(ct, sz) AllocZeroed((ct) * (sz))
 #define free Free
 
@@ -15,14 +15,14 @@
 }
 
 extern u8 gHeap[];
-void *Alloc(u32 size);
+void __attribute__((long_call)) *Alloc(u32 size);
 void __attribute__((long_call)) *AllocZeroed(u32 size);
 void Free(void *pointer);
 void InitHeap(void *pointer, u32 size);
 
 void* __attribute__((long_call)) Malloc(u32 size);
 void* __attribute__((long_call)) Calloc(u32 size);
-void __attribute__((long_call)) MallocInit(void* memStart, u32 memSize);
+void __attribute__((long_call)) InitHeap(void* memStart, u32 memSize);
 void __attribute__((long_call)) Free(void *pointer);
 
 void* __attribute__((long_call)) memcpy_(void *dst, const void* src, u8 size);
