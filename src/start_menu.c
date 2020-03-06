@@ -126,7 +126,7 @@ bool8 HandleStartMenuInput(void)
             if (GetNationalPokedexCount(FLAG_GET_SEEN) == 0)
                 return FALSE;
         }
-
+		
         gMenuCallback = (u32)sStartMenuItems[gStartMenu->actions[gStartMenu->cursorPos]].func.u8_void;
 
         if (gMenuCallback != (u32)StartMenuSaveCallback

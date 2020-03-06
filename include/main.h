@@ -56,8 +56,8 @@ extern const u8 gGameLanguage;
 void __attribute__((long_call)) SetMainCallback1(MainCallback callback);
 void __attribute__((long_call)) SetMainCallback2(MainCallback callback);
 
-void SetVBlankCallback(IntrCallback callback);
-void SetHBlankCallback(IntrCallback callback);
+void __attribute__((long_call)) SetVBlankCallback(IntrCallback callback);
+void __attribute__((long_call)) SetHBlankCallback(IntrCallback callback);
 
 
 /*

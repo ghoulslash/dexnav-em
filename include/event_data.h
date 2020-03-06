@@ -38,22 +38,19 @@ bool32 sub_806E2BC(void);
 void sub_806E6FC(void);
 */
 
-#define Var8000 (*((u16*) 0x20370B8))
-#define Var8001 (*((u16*) 0x20370BA))
-#define Var8002 (*((u16*) 0x20370BC))
-#define Var8003 (*((u16*) 0x20370BE))
-#define Var8004 (*((u16*) 0x20370C0))
-#define Var8005 (*((u16*) 0x20370C2))
-#define Var8006 (*((u16*) 0x20370C4))
-#define Var8007 (*((u16*) 0x20370C6))
-#define Var8008 (*((u16*) 0x20370C8))
-#define Var8009 (*((u16*) 0x20370CA))
-#define Var800A (*((u16*) 0x20370CC))
-#define Var800B (*((u16*) 0x20370CE))
-#define Var800D (*((u16*) 0x20370D0))
-#define Var8010 (*((u16*) 0x20370D6))
-#define Var800F (*((u16*) 0x20370d2))
-#define Var800E (*((u16*) 0x203ad30))
+#define Var8000 (*((u16*) 0x20375D8))
+#define Var8001 (*((u16*) 0x20375DA))
+#define Var8002 (*((u16*) 0x20375DC))
+#define Var8003 (*((u16*) 0x20375DE))
+#define Var8004 (*((u16*) 0x20375E0))
+#define Var8005 (*((u16*) 0x20375E2))
+#define Var8006 (*((u16*) 0x20375E4))
+#define Var8007 (*((u16*) 0x20375E6))
+#define Var8008 (*((u16*) 0x20375E8))
+#define Var8009 (*((u16*) 0x20375EA))
+#define Var800A (*((u16*) 0x20375EC))
+#define Var800B (*((u16*) 0x20375EE))
+#define Var800D (*((u16*) 0x20375F0))
 
 
 #define gSpecialVar_LastResult (*((u16*) 0x20370D0)) //extern u16 gSpecialVar_Result;

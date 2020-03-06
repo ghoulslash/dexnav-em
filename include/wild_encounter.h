@@ -31,7 +31,8 @@ struct WildPokemonHeader
     const struct WildPokemonInfo *fishingMonsInfo;
 };
 
-#define gWildMonHeaders ((struct WildPokemonHeader*) *((u32*) 0x8082990))
+//#define gWildMonHeaders ((struct WildPokemonHeader*) *((u32*) 0x8552D48))
+#define gWildMonHeaders ((struct WildPokemonHeader*) 0x8552D48)
 
 struct SwarmData
 {

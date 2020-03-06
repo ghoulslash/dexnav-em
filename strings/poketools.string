@@ -78,15 +78,11 @@ Capture first!
 #org @gText_DexNav_NoInfo
 --------
 
-#org @gText_DexNav_ChooseMon
-Choose a Pok\emon.
+#org @gText_Yes
+Yes
 
-#org @gText_DexNav_Invalid
-That Pok\emon can't be searched yet!
+#org @gText_No
+No
 
-#org @gText_DexNav_NoDataForSlot
-There's no data for that Pok\emon[.]
 
-#org @gText_DexNav_Locked
-Pok\emon searchable via R-button!
 

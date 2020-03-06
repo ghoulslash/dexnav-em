@@ -348,6 +348,8 @@ struct MusicPlayerInfo
     u32 intp;
 };
 
+#define gMPlayInfo_BGM ((struct MusicPlayerInfo*) 0x3007420)
+
 struct MusicPlayer
 {
     struct MusicPlayerInfo *info;

@@ -1,5 +1,8 @@
 #pragma once
 
+#define SE_Z_SCROLL 101
+#define SE_BAG1 252
+
 #define BGM_EYE_CREEPY 0x11B
 #define BGM_EYE_GIRL 0x11C
 #define BGM_EYE_BOY 0x11D

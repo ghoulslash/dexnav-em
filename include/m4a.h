@@ -23,7 +23,7 @@ void __attribute__((long_call)) m4aMPlayVolumeControl(struct MusicPlayerInfo *mp
 
 void __attribute__((long_call)) MPlayStart(struct MusicPlayerInfo *mplayInfo, const struct SongHeader *songHeader);
 
-extern struct MusicPlayerInfo gMPlayInfo_BGM;
+//extern struct MusicPlayerInfo gMPlayInfo_BGM;
 extern struct MusicPlayerInfo gMPlayInfo_SE1;
 extern struct MusicPlayerInfo gMPlayInfo_SE2;
 extern struct MusicPlayerInfo gMPlayInfo_SE3;

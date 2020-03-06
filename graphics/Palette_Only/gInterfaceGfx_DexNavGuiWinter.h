@@ -7,7 +7,7 @@
 //	+ palette 20 entries, lz77 compressed
 //	Total size: 40 = 40
 //
-//	Time-stamp: 2020-03-04, 20:22:21
+//	Time-stamp: 2020-03-06, 09:29:22
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //

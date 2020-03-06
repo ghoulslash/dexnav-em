@@ -38,10 +38,12 @@ ProcessSpriteCopyRequests = 0x800742C | 1;
 ResetSpriteData = 0x8006974 | 1;
 FreeSpriteTileRanges = 0x80085E0 | 1;
 LoadCompressedSpriteSheetUsingHeap = 0x8034988 | 1;
+LoadCompressedSpriteSheet = 0x8034530 | 1;
 CreateSprite = 0x8006DF4 | 1;
 LoadSpriteSheet = 0x80084F8 | 1;
 LoadSpritePalette = 0x8008744 | 1;
 SpriteCB_MonIcon = 0x80D3014 | 1;
+BlendPalettes = 0x80A2A20 | 1;
 
 TransferPlttBuffer = 0x80A19C0 | 1;
 ResetPaletteFade = 0x80A1A74 | 1;
@@ -75,13 +77,16 @@ IsMapTypeIndoors = 0x8085C14 | 1;
 FadeScreen = 0x80ABCD0 | 1;
 
 InitHeap = 0x8000B1C | 1;
-Alloc = 0x8000B38 | 1;
+Malloc = 0x8000B38 | 1;
 malloc_ = 0x8000B38 | 1;
 LZ77UnCompWram = 0x82E7090 | 1;
 LZ77UnCompVram = 0x82E708C | 1;
 Calloc = 0x8000B4C | 1;
+calloc_ = 0x8000B4C | 1;
 AllocZeroed = 0x8000B4C | 1;
+LZDecompressWram = 0x8034518 | 1;
 
+SpeciesToPokedexNum = 0x806E3C0 | 1;
 SpeciesToNationalPokedexNum = 0x806D4A4 | 1;
 GetSetPokedexFlag = 0x80C0664 | 1;
 CreateWildMon = 0x80B4E68 | 1;
@@ -151,8 +156,11 @@ memcpy_ = 0x82E93D4 | 1;
 memcpy = 0x82E93D4 | 1;
 
 CB1_Overworld = 0x8085E04 | 1;
+CB2_Overworld = 0x8085E5C | 1;
 CB2_ReturnToFieldWithOpenMenu = 0x8086194 | 1;
 StringCopy = 0x8008BA0 | 1;
+StringExpandPlaceholders = 0x8008EE0 | 1;
+StringAppend = 0x8008BC0 | 1;
 GetCurrentRegionMapSectionId = 0x8085C58 | 1;
 GetMapName = 0x812456C | 1;
 CpuFastSet = 0x82E7080 | 1;
@@ -171,3 +179,18 @@ gDummySpriteAffineAnimTable = 0x82EC6A8;
 GetSafariZoneFlag = 0x80FC0A0 | 1;
 GetNationalPokedexCount = 0x80C07F4 | 1;
 
+m4aMPlayVolumeControl = 0x82E111C | 1;
+
+SetGpuReg = 0x80010B4 | 1;
+DeactivateAllTextPrinters = 0x80045B0 | 1;
+ScanlineEffect_Stop = 0x80B9FB8 | 1;
+reset_temp_tile_data_buffers = 0x8199A20 | 1;
+decompress_and_copy_tile_data_to_vram = 0x8199A90 | 1;
+free_temp_tile_data_buffers_if_possible = 0x8199A44 | 1;
+CopyBgTilemapBufferToVram = 0x800236C | 1;
+EnableInterrupts = 0x800125C | 1;
+FieldClearVBlankHBlankCallbacks = 0x808631C | 1;
+FieldCB_WarpExitFadeFromBlack = 0x80AF3C8 | 1;
+gFieldCallback = 0x3005DAC;
+
+CopyItemName = 0x80D6644 | 1;

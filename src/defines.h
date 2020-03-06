@@ -26,6 +26,9 @@
 #include "../include/start_menu.h"
 #include "../include/text.h"
 #include "../include/sound.h"
+#include "../include/item.h"
+#include "../include/gpu_regs.h"
+#include "../include/scanline_effect.h"
 #include "../include/wild_encounter.h"
 #include "../include/window.h"
 #include "../include/malloc.h"
@@ -40,7 +43,7 @@
 #include "../include/constants/pokedex.h"
 #include "../include/constants/songs.h"
 #include "../include/constants/species.h"
-#include "../include/gba/io_reg.h"
+#include "../include/gba/gba.h"
 #include "../include/constants/flags.h"
 
 //#include "../include/new/battle_strings.h"
