@@ -723,8 +723,8 @@ void DexNavPopulateEncounterList(void)
 	//const struct WildPokemonInfo* waterMonsInfo = LoadProperMonsData(WATER_MONS_HEADER);
 
 	u16 headerId = GetCurrentMapWildMonHeaderId();
-	if (headerId == 0xFFFF)
-		return;
+	//if (headerId == 0xFFFF)
+	//	return;
 	
 	const struct WildPokemonInfo* landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
 	const struct WildPokemonInfo* waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
