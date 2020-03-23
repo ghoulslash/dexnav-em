@@ -16,30 +16,8 @@
 extern const u8 gInterfaceGfx_dexnavGuiTiles[];
 extern const u8 gInterfaceGfx_dexnavGuiMap[];
 extern const u8 gInterfaceGfx_dexnavGuiPal[];
-extern const u8 gInterfaceGfx_DexNavGuiVolcanoPal[];
-extern const u8 gInterfaceGfx_DexNavGuiFlowerParadiseAPal[];
-extern const u8 gInterfaceGfx_DexNavGuiFlowerParadiseBPal[];
-extern const u8 gInterfaceGfx_DexNavGuiFlowerParadiseCPal[];
-extern const u8 gInterfaceGfx_DexNavGuiAutumnPal[];
-extern const u8 gInterfaceGfx_DexNavGuiWinterPal[];
-extern const u8 gInterfaceGfx_DexNavGuiCavePal[];
-extern const u8 gInterfaceGfx_DexNavGuiDarkerCavePal[];
-extern const u8 gInterfaceGfx_DexNavGuiIndoorPal[];
-extern const u8 gInterfaceGfx_dexnavStarsTiles[];
-extern const u8 gInterfaceGfx_dexnavStarsPal[];
 extern const u8 gInterfaceGfx_selectionCursorTiles[];
 extern const u8 gInterfaceGfx_selectionCursorPal[];
-extern const u8 gInterfaceGfx_emptyTiles[];
-extern const u8 gInterfaceGfx_emptyPal[];
-extern const u8 gInterfaceGfx_CapturedAllPokemonTiles[];
-extern const u8 gInterfaceGfx_CapturedAllPokemonPal[];
-extern const u8 gInterfaceGfx_caveSmokeTiles[];
-extern const u16 gInterfaceGfx_caveSmokePal[];
-extern const u8 gInterfaceGfx_SparklesTiles[];
-extern const u16 gInterfaceGfx_SparklesPal[];
-extern const u8 gInterfaceGfx_LavaBubblesTiles[];
-extern const u16 gInterfaceGfx_LavaBubblesPal[];
-extern const u8 gInterfaceGfx_DexNavNoDataSymbolTiles[];
 
 // STRINGS
 extern const u8 gText_DexNavText[];
@@ -72,9 +50,6 @@ typedef void (*SpriteCallback)(struct Sprite* s);
 
 // DEFINES
 #define TILE_SIZE 32
-#define SPRITE_RAM 0x6010000
-
-#define TOOL_COUNT 2
 #define priv0 gTasks[taskId].data[0]
 
 #define CPUFSCPY 0
@@ -363,12 +338,30 @@ void VblackCallbackSeq(void)
     TransferPlttBuffer();
 }
 
-void ClearHandlers(void)
+static void ResetGPU(void)
+{
+    SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
+    SetGpuReg(REG_OFFSET_BG3CNT, DISPCNT_MODE_0);
+    SetGpuReg(REG_OFFSET_BG2CNT, DISPCNT_MODE_0);
+    SetGpuReg(REG_OFFSET_BG1CNT, DISPCNT_MODE_0);
+    SetGpuReg(REG_OFFSET_BG0CNT, DISPCNT_MODE_0);
+    SetGpuReg(REG_OFFSET_BG3HOFS, DISPCNT_MODE_0);
+    SetGpuReg(REG_OFFSET_BG3VOFS, DISPCNT_MODE_0);
+    SetGpuReg(REG_OFFSET_BG2HOFS, DISPCNT_MODE_0);
+    SetGpuReg(REG_OFFSET_BG2VOFS, DISPCNT_MODE_0);
+    SetGpuReg(REG_OFFSET_BG1HOFS, DISPCNT_MODE_0);
+    SetGpuReg(REG_OFFSET_BG1VOFS, DISPCNT_MODE_0);
+    SetGpuReg(REG_OFFSET_BG0HOFS, DISPCNT_MODE_0);
+    SetGpuReg(REG_OFFSET_BG0VOFS, DISPCNT_MODE_0);
+}
+
+static void ClearHandlers(void)
 {
     SetVBlankCallback(NULL);
-    SetHBlankCallback(NULL);
-    SetMainCallback1(NULL);
-    SetMainCallback2(NULL);
+    DmaFill16(3, 0, VRAM, VRAM_SIZE);
+    DmaFill32(3, 0, OAM, OAM_SIZE);
+    DmaFill16(3, 0, PLTT, PLTT_SIZE);
+    ResetGPU();
 }
 
 void DexNavGUICallback2(void)
@@ -619,7 +612,7 @@ void DexNavLoadPokeIcons(void)
 		if (species != SPECIES_NONE)
 		{
 			if (!GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN))
-				CreateMonIcon(276, SpriteCB_MonIcon, x, y, 1, pid, 0);		
+				CreateMonIcon(SPECIES_TREECKO - 1, SpriteCB_MonIcon, x, y, 1, pid, 0);		
 			else
 				CreateMonIcon(species, SpriteCB_MonIcon, x, y, 0, pid, 0);
 		}
@@ -647,7 +640,7 @@ void DexNavLoadPokeIcons(void)
 		if (species != SPECIES_NONE)
 		{
 			if (!GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN))
-				CreateMonIcon(276, SpriteCB_MonIcon, x, y, 1, pid, 0);		
+				CreateMonIcon(SPECIES_TREECKO - 1, SpriteCB_MonIcon, x, y, 1, pid, 0);		
 			else
 				CreateMonIcon(species, SpriteCB_MonIcon, x, y, 0, pid, 0);
 		}
@@ -819,8 +812,8 @@ void DexNavPrintMonInfo(void)
 		
 		AddTextPrinterParameterized3(WINDOW_ITEM_2, 0, 0, 4, &DexNav_BlackText, 0, gStringVar4);
 		
-		// hoenn dex
-		if (species >= SPECIES_TREECKO)
+		// captured
+		if (GetSetPokedexFlag(dexNum, FLAG_GET_CAUGHT))
 			StringCopy(gStringVar4, gText_Yes);
 		else
 			StringCopy(gStringVar4, gText_No);
